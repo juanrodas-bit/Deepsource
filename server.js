@@ -30,14 +30,14 @@ app.get('/', (req, res) => {
 async function startServer() {
   try {
     await db.sequelize.authenticate();
-    console.log('✓ Conexión a la base de datos establecida.');
+    console.info('✓ Conexión a la base de datos establecida.');
 
     // Sincronizar modelos (alter: true actualiza sin borrar datos)
     await db.sequelize.sync({ alter: true });
-    console.log('✓ Modelos sincronizados con la base de datos.');
+    console.info('✓ Modelos sincronizados con la base de datos.');
 
     app.listen(PORT, () => {
-      console.log(`✓ Servidor corriendo en http://localhost:${PORT}`);
+      console.info(`✓ Servidor corriendo en http://localhost:${PORT}`);
     });
   } catch (error) {
     console.error('✗ Error al iniciar el servidor:', error);
