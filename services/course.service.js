@@ -2,7 +2,7 @@ const { Course, Professor, Student } = require('../models');
 const { Op } = require('sequelize');
 
 class CourseService {
-  async findAll(queryParams = {}) {
+  static async findAll(queryParams = {}) {
     const { nombre, codigo, professorId, limit, offset } = queryParams;
     
     const where = {};
@@ -34,7 +34,7 @@ class CourseService {
     return await Course.findAll(options);
   }
 
-  async findById(id) {
+  static async findById(id) {
     const course = await Course.findByPk(id, {
       include: [
         { model: Professor, as: 'professor' },
@@ -53,11 +53,11 @@ class CourseService {
     return course;
   }
 
-  async create(data) {
+  static async create(data) {
     return await Course.create(data);
   }
 
-  async update(id, data) {
+  static async update(id, data) {
     const course = await Course.findByPk(id);
     
     if (!course) {
@@ -67,7 +67,7 @@ class CourseService {
     return await course.update(data);
   }
 
-  async partialUpdate(id, data) {
+  static async partialUpdate(id, data) {
     const course = await Course.findByPk(id);
     
     if (!course) {
@@ -77,7 +77,7 @@ class CourseService {
     return await course.update(data);
   }
 
-  async delete(id) {
+  static async delete(id) {
     const course = await Course.findByPk(id);
     
     if (!course) {
@@ -90,11 +90,11 @@ class CourseService {
 
   // ── Bulk operations ──────────────────────────────────────────────
 
-  async bulkCreate(records) {
+  static async bulkCreate(records) {
     return await Course.bulkCreate(records, { validate: true });
   }
 
-  async bulkUpdate(updates) {
+  static async bulkUpdate(updates) {
     const results = await Promise.all(
       updates.map(async ({ id, ...data }) => {
         const course = await Course.findByPk(id);
@@ -105,7 +105,7 @@ class CourseService {
     return results;
   }
 
-  async bulkDelete(ids) {
+  static async bulkDelete(ids) {
     const deleted = await Course.destroy({ where: { id: ids } });
     return { message: `${deleted} curso(s) eliminado(s)` };
   }

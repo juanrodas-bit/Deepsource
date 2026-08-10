@@ -1,7 +1,7 @@
 const studentService = require('../services/student.service');
 
 class StudentController {
-  async getAll(req, res) {
+  static async getAll(req, res) {
     try {
       const students = await studentService.findAll(req.query);
       res.json(students);
@@ -10,7 +10,7 @@ class StudentController {
     }
   }
 
-  async getById(req, res) {
+  static async getById(req, res) {
     try {
       const student = await studentService.findById(req.params.id);
       res.json(student);
@@ -19,7 +19,7 @@ class StudentController {
     }
   }
 
-  async create(req, res) {
+  static async create(req, res) {
     try {
       const student = await studentService.create(req.body);
       res.status(201).json(student);
@@ -28,7 +28,7 @@ class StudentController {
     }
   }
 
-  async update(req, res) {
+  static async update(req, res) {
     try {
       const student = await studentService.update(req.params.id, req.body);
       res.json(student);
@@ -37,7 +37,7 @@ class StudentController {
     }
   }
 
-  async partialUpdate(req, res) {
+  static async partialUpdate(req, res) {
     try {
       const student = await studentService.partialUpdate(req.params.id, req.body);
       res.json(student);
@@ -46,7 +46,7 @@ class StudentController {
     }
   }
 
-  async delete(req, res) {
+  static async delete(req, res) {
     try {
       const result = await studentService.delete(req.params.id);
       res.json(result);
@@ -55,7 +55,7 @@ class StudentController {
     }
   }
 
-  async bulkCreate(req, res) {
+  static async bulkCreate(req, res) {
     try {
       const students = await studentService.bulkCreate(req.body);
       res.status(201).json(students);
@@ -64,7 +64,7 @@ class StudentController {
     }
   }
 
-  async bulkUpdate(req, res) {
+  static async bulkUpdate(req, res) {
     try {
       const students = await studentService.bulkUpdate(req.body);
       res.json(students);
@@ -73,7 +73,7 @@ class StudentController {
     }
   }
 
-  async bulkDelete(req, res) {
+  static async bulkDelete(req, res) {
     try {
       // body: { ids: [1, 2, 3] }
       const result = await studentService.bulkDelete(req.body.ids);

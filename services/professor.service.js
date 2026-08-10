@@ -2,7 +2,7 @@ const { Professor, Course } = require('../models');
 const { Op } = require('sequelize');
 
 class ProfessorService {
-  async findAll(queryParams = {}) {
+  static async findAll(queryParams = {}) {
     const { nombre, especialidad, limit, offset } = queryParams;
     
     const where = {};
@@ -24,7 +24,7 @@ class ProfessorService {
     return await Professor.findAll(options);
   }
 
-  async findById(id) {
+  static async findById(id) {
     const professor = await Professor.findByPk(id, {
       include: [{ model: Course, as: 'courses' }]
     });
@@ -36,11 +36,11 @@ class ProfessorService {
     return professor;
   }
 
-  async create(data) {
+  static async create(data) {
     return await Professor.create(data);
   }
 
-  async update(id, data) {
+  static async update(id, data) {
     const professor = await Professor.findByPk(id);
     
     if (!professor) {
@@ -50,7 +50,7 @@ class ProfessorService {
     return await professor.update(data);
   }
 
-  async partialUpdate(id, data) {
+  static async partialUpdate(id, data) {
     const professor = await Professor.findByPk(id);
     
     if (!professor) {
@@ -60,7 +60,7 @@ class ProfessorService {
     return await professor.update(data);
   }
 
-  async delete(id) {
+  static async delete(id) {
     const professor = await Professor.findByPk(id);
     
     if (!professor) {
@@ -73,11 +73,11 @@ class ProfessorService {
 
   // ── Bulk operations ──────────────────────────────────────────────
 
-  async bulkCreate(records) {
+  static async bulkCreate(records) {
     return await Professor.bulkCreate(records, { validate: true });
   }
 
-  async bulkUpdate(updates) {
+  static async bulkUpdate(updates) {
     const results = await Promise.all(
       updates.map(async ({ id, ...data }) => {
         const professor = await Professor.findByPk(id);
@@ -88,7 +88,7 @@ class ProfessorService {
     return results;
   }
 
-  async bulkDelete(ids) {
+  static async bulkDelete(ids) {
     const deleted = await Professor.destroy({ where: { id: ids } });
     return { message: `${deleted} profesor(es) eliminado(s)` };
   }

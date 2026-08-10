@@ -1,7 +1,7 @@
 const enrollmentService = require('../services/enrollment.service');
 
 class EnrollmentController {
-  async getAll(req, res) {
+  static async getAll(req, res) {
     try {
       const enrollments = await enrollmentService.findAll(req.query);
       res.json(enrollments);
@@ -10,7 +10,7 @@ class EnrollmentController {
     }
   }
 
-  async getById(req, res) {
+  static async getById(req, res) {
     try {
       const enrollment = await enrollmentService.findById(req.params.id);
       res.json(enrollment);
@@ -19,7 +19,7 @@ class EnrollmentController {
     }
   }
 
-  async create(req, res) {
+  static async create(req, res) {
     try {
       const enrollment = await enrollmentService.create(req.body);
       res.status(201).json(enrollment);
@@ -28,7 +28,7 @@ class EnrollmentController {
     }
   }
 
-  async update(req, res) {
+  static async update(req, res) {
     try {
       const enrollment = await enrollmentService.update(req.params.id, req.body);
       res.json(enrollment);
@@ -37,7 +37,7 @@ class EnrollmentController {
     }
   }
 
-  async partialUpdate(req, res) {
+  static async partialUpdate(req, res) {
     try {
       const enrollment = await enrollmentService.partialUpdate(req.params.id, req.body);
       res.json(enrollment);
@@ -46,7 +46,7 @@ class EnrollmentController {
     }
   }
 
-  async delete(req, res) {
+  static async delete(req, res) {
     try {
       const result = await enrollmentService.delete(req.params.id);
       res.json(result);
@@ -55,7 +55,7 @@ class EnrollmentController {
     }
   }
 
-  async bulkCreate(req, res) {
+  static async bulkCreate(req, res) {
     try {
       const enrollments = await enrollmentService.bulkCreate(req.body);
       res.status(201).json(enrollments);
@@ -64,7 +64,7 @@ class EnrollmentController {
     }
   }
 
-  async bulkUpdate(req, res) {
+  static async bulkUpdate(req, res) {
     try {
       const enrollments = await enrollmentService.bulkUpdate(req.body);
       res.json(enrollments);
@@ -73,7 +73,7 @@ class EnrollmentController {
     }
   }
 
-  async bulkDelete(req, res) {
+  static async bulkDelete(req, res) {
     try {
       const result = await enrollmentService.bulkDelete(req.body.ids);
       res.json(result);

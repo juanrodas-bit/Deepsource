@@ -1,7 +1,7 @@
 const professorService = require('../services/professor.service');
 
 class ProfessorController {
-  async getAll(req, res) {
+  static async getAll(req, res) {
     try {
       const professors = await professorService.findAll(req.query);
       res.json(professors);
@@ -10,7 +10,7 @@ class ProfessorController {
     }
   }
 
-  async getById(req, res) {
+  static async getById(req, res) {
     try {
       const professor = await professorService.findById(req.params.id);
       res.json(professor);
@@ -19,7 +19,7 @@ class ProfessorController {
     }
   }
 
-  async create(req, res) {
+  static async create(req, res) {
     try {
       const professor = await professorService.create(req.body);
       res.status(201).json(professor);
@@ -28,7 +28,7 @@ class ProfessorController {
     }
   }
 
-  async update(req, res) {
+  static async update(req, res) {
     try {
       const professor = await professorService.update(req.params.id, req.body);
       res.json(professor);
@@ -37,7 +37,7 @@ class ProfessorController {
     }
   }
 
-  async partialUpdate(req, res) {
+  static async partialUpdate(req, res) {
     try {
       const professor = await professorService.partialUpdate(req.params.id, req.body);
       res.json(professor);
@@ -46,7 +46,7 @@ class ProfessorController {
     }
   }
 
-  async delete(req, res) {
+  static async delete(req, res) {
     try {
       const result = await professorService.delete(req.params.id);
       res.json(result);
@@ -55,7 +55,7 @@ class ProfessorController {
     }
   }
 
-  async bulkCreate(req, res) {
+  static async bulkCreate(req, res) {
     try {
       const professors = await professorService.bulkCreate(req.body);
       res.status(201).json(professors);
@@ -64,7 +64,7 @@ class ProfessorController {
     }
   }
 
-  async bulkUpdate(req, res) {
+  static async bulkUpdate(req, res) {
     try {
       const professors = await professorService.bulkUpdate(req.body);
       res.json(professors);
@@ -73,7 +73,7 @@ class ProfessorController {
     }
   }
 
-  async bulkDelete(req, res) {
+  static async bulkDelete(req, res) {
     try {
       const result = await professorService.bulkDelete(req.body.ids);
       res.json(result);

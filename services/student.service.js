@@ -2,7 +2,7 @@ const { Student, Course } = require('../models');
 const { Op } = require('sequelize');
 
 class StudentService {
-  async findAll(queryParams = {}) {
+  static async findAll(queryParams = {}) {
     const { nombre, correo, page, pageSize } = queryParams;
 
     const parsedPage     = parseInt(page)     || 1;
@@ -70,7 +70,7 @@ class StudentService {
     return await student.update(data);
   }
 
-  async partialUpdate(id, data) {
+  static async partialUpdate(id, data) {
     const student = await Student.findByPk(id);
     
     if (!student) {
@@ -80,7 +80,7 @@ class StudentService {
     return await student.update(data);
   }
 
-  async delete(id) {
+  static async delete(id) {
     const student = await Student.findByPk(id);
     
     if (!student) {
@@ -93,7 +93,7 @@ class StudentService {
 
   // ── Bulk operations ──────────────────────────────────────────────
 
-  async bulkCreate(records) {
+  static async bulkCreate(records) {
     // ignoreDuplicates evita error si el correo ya existe
     return await Student.bulkCreate(records, {
       validate: true,
@@ -101,7 +101,7 @@ class StudentService {
     });
   }
 
-  async bulkUpdate(updates) {
+  static async bulkUpdate(updates) {
     // updates: [{ id, ...fields }]
     const results = await Promise.all(
       updates.map(async ({ id, ...data }) => {
@@ -113,7 +113,7 @@ class StudentService {
     return results;
   }
 
-  async bulkDelete(ids) {
+  static async bulkDelete(ids) {
     const deleted = await Student.destroy({ where: { id: ids } });
     return { message: `${deleted} estudiante(s) eliminado(s)` };
   }

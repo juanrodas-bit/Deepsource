@@ -2,7 +2,7 @@ const { Enrollment, Student, Course, Professor } = require('../models');
 const { Op } = require('sequelize');
 
 class EnrollmentService {
-  async findAll(queryParams = {}) {
+  static async findAll(queryParams = {}) {
     const { studentId, courseId, notaMin, notaMax, limit, offset } = queryParams;
     
     const where = {};
@@ -36,7 +36,7 @@ class EnrollmentService {
     return await Enrollment.findAll(options);
   }
 
-  async findById(id) {
+  static async findById(id) {
     const enrollment = await Enrollment.findByPk(id, {
       include: [
         { model: Student, as: 'student' },
@@ -55,7 +55,7 @@ class EnrollmentService {
     return enrollment;
   }
 
-  async create(data) {
+  static async create(data) {
     // Verificar que el estudiante existe
     const student = await Student.findByPk(data.studentId);
     if (!student) {
@@ -71,7 +71,7 @@ class EnrollmentService {
     return await Enrollment.create(data);
   }
 
-  async update(id, data) {
+  static async update(id, data) {
     const enrollment = await Enrollment.findByPk(id);
     
     if (!enrollment) {
@@ -81,7 +81,7 @@ class EnrollmentService {
     return await enrollment.update(data);
   }
 
-  async partialUpdate(id, data) {
+  static async partialUpdate(id, data) {
     const enrollment = await Enrollment.findByPk(id);
     
     if (!enrollment) {
@@ -91,7 +91,7 @@ class EnrollmentService {
     return await enrollment.update(data);
   }
 
-  async delete(id) {
+  static async delete(id) {
     const enrollment = await Enrollment.findByPk(id);
     
     if (!enrollment) {
@@ -104,7 +104,7 @@ class EnrollmentService {
 
   // ── Bulk operations ──────────────────────────────────────────────
 
-  async bulkCreate(records) {
+  static async bulkCreate(records) {
     // Validar que todos los studentId y courseId existen
     const studentIds = [...new Set(records.map(r => r.studentId))];
     const courseIds  = [...new Set(records.map(r => r.courseId))];
@@ -122,7 +122,7 @@ class EnrollmentService {
     return await Enrollment.bulkCreate(records, { validate: true });
   }
 
-  async bulkUpdate(updates) {
+  static async bulkUpdate(updates) {
     const results = await Promise.all(
       updates.map(async ({ id, ...data }) => {
         const enrollment = await Enrollment.findByPk(id);
@@ -133,7 +133,7 @@ class EnrollmentService {
     return results;
   }
 
-  async bulkDelete(ids) {
+  static async bulkDelete(ids) {
     const deleted = await Enrollment.destroy({ where: { id: ids } });
     return { message: `${deleted} matrícula(s) eliminada(s)` };
   }
