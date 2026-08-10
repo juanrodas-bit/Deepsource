@@ -2,7 +2,7 @@ const { Enrollment, Student, Course, Professor } = require('../models');
 const { Op } = require('sequelize');
 
 class EnrollmentService {
-  static async findAll(queryParams = {}) {
+  static async  findAll(queryParams = {}) {
     const { studentId, courseId, notaMin, notaMax, limit, offset } = queryParams;
     
     const where = {};

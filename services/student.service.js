@@ -40,7 +40,7 @@ class StudentService {
     };
   }
 
-  async findById(id) {
+  static async findById(id) {
     const student = await Student.findByPk(id, {
       include: [{
         model: Course,
@@ -56,11 +56,11 @@ class StudentService {
     return student;
   }
 
-  async create(data) {
+  static async create(data) {
     return await Student.create(data);
   }
 
-  async update(id, data) {
+  static async update(id, data) {
     const student = await Student.findByPk(id);
     
     if (!student) {
